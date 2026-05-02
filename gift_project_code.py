@@ -27,51 +27,44 @@ def heart_rain():
         animation_length=3, # Дождь будет идти 3 секунды
     )
 
-# Кастомный CSS для оформления
 st.markdown("""
     <style>
-    /* Подключаем шрифты */
+    /* 1. Подключаем более "готический" шрифт */
     @import url('https://googleapis.com');
 
-    /* 1. Фон всего приложения и основной шрифт */
+    /* 2. Темно-голубой фон */
     .stApp {
-        background-color: #E1F5FE; /* Нежно-голубой */
+        background-color: #0277BD; /* Глубокий синий цвет */
     }
 
-    /* 2. Центрируем всё содержимое */
+    /* 3. Центрируем всё содержимое */
     .main .block-container {
         display: flex;
         flex-direction: column;
         align-items: center;
-        justify-content: center;
         text-align: center;
     }
 
-    /* 3. Оформление всего текста */
-    div, p, label, .stText, .stMarkdown {
-        font-family: 'Kelly Slab', serif !important;
-        color: #01579B !important; /* Глубокий синий для читаемости */
-        font-size: 20px;
-        text-align: center;
-    }
-
-    /* 4. Оформление заголовков */
-    h1, h2, h3 {
-        font-family: 'Pacifico', cursive !important;
+    /* 4. Делаем ВЕСЬ текст крупнее, готическим и курсивным */
+    div, p, label, .stText, .stMarkdown, h1, h2, h3 {
+        font-family: 'MedievalSharp', cursive !important;
+        color: #E1F5FE !important; /* Светлый текст для темного фона */
+        font-size: 26px !important; /* Увеличенный размер шрифта */
+        font-style: italic !important; /* Курсив */
         text-align: center !important;
-        color: #0277BD !important;
     }
 
-    /* 5. Центрируем кнопки и инпуты */
+    /* 5. Настройка для кнопок и полей ввода, чтобы они были по центру */
     .stButton, .stNumberInput {
         display: flex;
         justify-content: center;
         margin: 0 auto;
+        width: fit-content;
     }
     
-    /* Делаем курсив для особого настроения */
-    em {
-        font-style: italic;
+    /* Дополнительно: делаем заголовки еще больше */
+    h1 {
+        font-size: 50px !important;
     }
     </style>
     """, unsafe_allow_html=True)
