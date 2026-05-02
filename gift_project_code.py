@@ -29,15 +29,15 @@ def heart_rain():
 
 st.markdown("""
     <style>
-    /* 1. Подключаем более "готический" шрифт */
+    /* 1. Подключаем тонкий и длинный шрифт */
     @import url('https://googleapis.com');
 
-    /* 2. Темно-голубой фон */
+    /* 2. Фон "Глубокий океан" */
     .stApp {
-        background-color: #0277BD; /* Глубокий синий цвет */
+        background-color: #003366; /* Глубокий синий */
     }
 
-    /* 3. Центрируем всё содержимое */
+    /* 3. Центрирование */
     .main .block-container {
         display: flex;
         flex-direction: column;
@@ -45,26 +45,26 @@ st.markdown("""
         text-align: center;
     }
 
-    /* 4. Делаем ВЕСЬ текст крупнее, готическим и курсивным */
+    /* 4. Тонкий, длинный и курсивный текст */
     div, p, label, .stText, .stMarkdown, h1, h2, h3 {
-        font-family: 'MedievalSharp', cursive !important;
-        color: #E1F5FE !important; /* Светлый текст для темного фона */
-        font-size: 26px !important; /* Увеличенный размер шрифта */
-        font-style: italic !important; /* Курсив */
+        font-family: 'Josefin Sans', sans-serif !important;
+        font-weight: 100 !important; /* Делаем шрифт максимально тонким */
+        color: #E0F2F1 !important; /* Цвет морской пены (почти белый) */
+        font-size: 28px !important; 
+        font-style: italic !important;
         text-align: center !important;
     }
 
-    /* 5. Настройка для кнопок и полей ввода, чтобы они были по центру */
-    .stButton, .stNumberInput {
-        display: flex;
-        justify-content: center;
-        margin: 0 auto;
+    /* 5. Делаем поле ввода и кнопки аккуратными */
+    .stNumberInput, .stTextInput, .stButton {
         width: fit-content;
+        margin: 0 auto;
     }
-    
-    /* Дополнительно: делаем заголовки еще больше */
-    h1 {
-        font-size: 50px !important;
+
+    /* Убираем жирность у заголовков, чтобы они оставались тонкими */
+    h1, h2, h3 {
+        font-weight: 100 !important;
+        font-size: 45px !important;
     }
     </style>
     """, unsafe_allow_html=True)
