@@ -48,7 +48,7 @@ st.markdown("""
     /* 4. Тонкий, длинный и курсивный текст */
     div, p, label, .stText, .stMarkdown, h1, h2, h3 {
         font-family: 'Josefin Sans', sans-serif !important;
-        font-weight: 100 !important; /* Делаем шрифт максимально тонким */
+        font-weight: 90 !important; /* Делаем шрифт максимально тонким */
         color: #E0F2F1 !important; /* Цвет морской пены (почти белый) */
         font-size: 28px !important; 
         font-style: italic !important;
@@ -74,14 +74,14 @@ if 'start_clicked' not in st.session_state:
 
 if not st.session_state.start_clicked:
     # Заголовок
-    st.markdown("# Привет! Тебя ждет сюрприз... ✨")
+    st.markdown("#hi sweetie,thats some presents i made for u!")
     
     # Собачка (центрируется автоматически благодаря CSS выше)
     st.image("https://placedog.net", width=400)
     
-    st.markdown("### *Это маленькое приключение создано специально для тебя.*")
+    st.markdown("### *ur special for me*")
     
-    if st.button("Открыть подарок 🎁"):
+    if st.button("open!"):
         st.session_state.start_clicked = True
         st.rerun()
 else:
@@ -99,8 +99,8 @@ else:
 
         # 1. ВИСЕЛИЦА
     if guess == 1:
-            st.subheader("🎮 Мини-игра: Виселица")
-            word = "ЛЮБИМЫЙ"
+            st.subheader("mini-game")
+            word = "sweetheart"
             
             # --- Инициализация памяти игры ---
             if 'guessed_letters' not in st.session_state:
@@ -109,29 +109,29 @@ else:
                 st.session_state.attempts = 6  # Даем 6 попыток
 
             # --- Подсказка и счетчик ---
-            st.info("💡 Подсказка: это слово начинается на букву **'Л'**")
-            st.write(f"У тебя осталось попыток: {st.session_state.attempts} 🛡️")
+            st.info("💡 hint: it started  w an **'S'**")
+            st.write(f"honey, u have: {st.session_state.attempts} attemts!")
 
             # --- Ввод буквы ---
             # Мы добавляем key="hangman_input", чтобы Streamlit не путался
-            letter = st.text_input("Введи одну русскую букву:", max_chars=1, key="hangman_input").upper()
+            letter = st.text_input("write one eng letter:", max_chars=1, key="hangman_input").upper()
             
             if letter:
                 if letter in st.session_state.guessed_letters:
-                    st.warning(f"Букву '{letter}' ты уже вводил(а), не спи! 😉")
+                    st.warning(f"u already have written this letter,aww,dont sleeep!! 😉")
                 elif letter in word:
                     st.session_state.guessed_letters.add(letter)
-                    st.toast("Есть такая буква!", icon="✅")
+                    st.toast("yeap,i have this letter!", icon="✅")
                 else:
                     st.session_state.guessed_letters.add(letter)
                     st.session_state.attempts -= 1
                     
                     # Милые подколы при ошибке
                     roasts = [
-                        "Мимо! Твоя интуиция сегодня ушла в отпуск? 🌴",
-                        "Не-а. Попробуй еще раз, я в тебя верю (почти)! 😎",
-                        "Хм, такой буквы нет. Ты точно не робот? 🤖",
-                        "Ой! Кажется, кто-то невнимательно читал подсказку... 🙊"
+                        "ur my stupid hehe🌴",
+                        "i believe in u!(almost..)😎",
+                        "?? r u a fcking robot,dear?? 🤖",
+                        "oops, i  see someone couldnt read the hint... 🙊"
                     ]
                     st.error(random.choice(roasts))
 
@@ -143,95 +143,95 @@ else:
             if " _ " not in display_word:
                 st.success("sweetie u passed! ❤️")
                 heart_rain()
-                if st.button("Начать заново"):
+                if st.button("start again??)"):
                     st.session_state.guessed_letters = set()
                     st.session_state.attempts = 6
                     st.rerun()
                     
             elif st.session_state.attempts <= 0:
-                st.error(f"Попытки кончились! Слово было: {word}. Ну ты и соня! 😴")
-                if st.button("Дай мне еще шанс!"):
+                st.error(f"u lost r attemts! the word was: {word}. but actually its not that bad)😴")
+                if st.button("give me one more chance!"):
                     st.session_state.guessed_letters = set()
                     st.session_state.attempts = 6
                     st.rerun()
 
         # 2. РЕТРИВЕР
     elif guess == 2:
-        st.subheader("📸 Ой, я нашел твое фото...")
+        st.subheader("📸 i think i found ur photo!..")
         # Используем твою новую переменную
-        st.image(image_dog, caption="Источник: папка 'Самые милые существа'")
+        st.image(image_dog, caption="the source: folder 'the most cutiest creature in the world'")
         
         heart_rain() # Сразу немного сердечек
         
-        st.write("## Это ты на фото?")
+        st.write("## is that u!?")
         
         # Создаем две колонки для кнопок, чтобы они были рядом
         col1, col2 = st.columns(2)
         
         with col1:
-            if st.button("Да, это я! ✨"):
-                st.success("Я так и знал! Ты — само воплощение дружелюбия и радости.")
+            if st.button("ofc its me!"):
+                st.success("iknew that! u are embodiment of beauty.")
                 st.balloons()
                 
         with col2:
-            if st.button("Нет, не я 🤨"):
-                st.warning("Хм... Странно. Но по уровню милоты вы абсолютно идентичны! Признавайся, есть общие корни?")
-                if st.button("Ладно, я признаюсь..."):
-                    st.write("### Вот именно! ❤️")
+            if st.button("no thats not me! 🤨"):
+                st.warning("не пизди")
+                if st.button("all right its me.."):
+                    st.write("### good boy ❤️")
                     heart_rain()
 
         # 3. ЦУ-Е-ФА
     elif guess == 3:
-        st.subheader("Давай сыграем в Цу-Е-Фа! ✊✌️✋")
-        st.write("Выбери свою фигуру:")
+        st.subheader("some game?✊✌️✋")
+        st.write("choose:")
         
         col_k, col_n, col_b = st.columns(3)
         user_choice = None
 
-        if col_k.button("🪨 Камень"): user_choice = "rock"
-        if col_n.button("✂️ Ножницы"): user_choice = "scissors"
-        if col_b.button("📄 Бумага"): user_choice = "paper"
+        if col_k.button("🪨"): user_choice = "rock"
+        if col_n.button("✂️ "): user_choice = "scissors"
+        if col_b.button("📄 "): user_choice = "paper"
 
         if user_choice:
             bot = random.choice(["rock", "scissors", "paper"])
             emoji_map = {"rock": "🪨", "scissors": "✂️", "paper": "📄"}
             
-            st.write(f"Твой выбор: {emoji_map[user_choice]} VS Мой выбор: {emoji_map[bot]}")
+            st.write(f"ur choice: {emoji_map[user_choice]} VS my choice: {emoji_map[bot]}")
             
             if user_choice == bot:
-                st.info("🤝 Ничья! Мы думаем одинаково.")
+                st.info("🤝 a draw! we think not that different")
             elif (user_choice == "rock" and bot == "scissors") or \
                 (user_choice == "scissors" and bot == "paper") or \
                 (user_choice == "paper" and bot == "rock"):
-                st.success("✨ Ты победил! Твоя удача сегодня на высоте!")
+                st.success("u won honey! your luck !")
                 st.balloons()
                 heart_rain()
             else:
-                st.warning("😜 Я выиграл! Но ты всё равно лучший игрок.")
+                st.warning("i won! but you are always first).")
 
         # 4. КОМПЛИМЕНТ
     elif guess == 4:
-        st.subheader("Минутка приятностей ❤️")
+        st.subheader("just want to say ..")
         compliments = [
-            "Ты — причина чьей-то улыбки сегодня! 😊",
-            "Твоя доброта делает этот мир лучше. ✨",
-            "Ты самый светлый человек, которого я знаю! 🌟",
-            "С тобой всегда уютно и тепло. ☕",
-            "Ты просто чудо! Никогда не забывай об этом. ✨"
+            "u r the reason why i laughed! ",
+            "u made my world brighter. ✨",
+            "u r the most fair person i ever met! ",
+            "why its always so cozy around u?. ☕",
+            "never forget that u r the wonder. "
         ]
-        if st.button("Получить комплимент"):
+        if st.button("ok say ur words"):
             st.success(random.choice(compliments))
             heart_rain()
 
     # 5. КРАСИВОЕ СЕРДЦЕ (Lottie)
     elif guess == 5:
-        st.subheader("Бесконечная любовь! ❤️")
+        st.subheader("luv u!happy bday honey)")
         if lottie_heart:
             st_lottie(lottie_heart, height=300, key="heart")
         else:
             st.write("### ❤️❤️❤️") # Запасной вариант, если нет интернета
-        st.write("Ты — особенный человек!")
+        st.write("u amazing")
         heart_rain()
 
     else:
-            st.write("Попробуй другое число!")
+            st.write("r u an asshole?just choose another number!")
