@@ -98,63 +98,59 @@ else:
     guess = st.number_input("guess a number from 1 to 5!", min_value=1, max_value=10, step=1)
 
         # 1. ВИСЕЛИЦА
-    if guess == 1:
-            st.subheader("mini-game")
-            word = "sweetheart"
-            
-            # --- Инициализация памяти игры ---
-            if 'guessed_letters' not in st.session_state:
-                st.session_state.guessed_letters = set()
-            if 'attempts' not in st.session_state:
-                st.session_state.attempts = 6  # Даем 6 попыток
+    st.subheader("mini-game")
+    word = "sweetheart"
+    
+    # --- Инициализация памяти игры ---
+    if 'guessed_letters' not in st.session_state:
+        st.session_state.guessed_letters = set()
+    if 'attempts' not in st.session_state:
+        st.session_state.attempts = 6
+    
+    # --- Отображение текущего прогресса ---
+    # Этого не было на фото, но без этого друг не увидит, сколько букв угадал
+    display_word = "".join([letter if letter in st.session_state.guessed_letters else "_" for letter in word])
+    st.info(f"✨ Слово: {display_word}")
+    st.write(f"honey, u have: {st.session_state.attempts} attempts left!")
+    
+    # --- Ввод буквы ---
+    # Используем форму, чтобы ввод очищался (опционально)
+    with st.form(key='hangman_form', clear_on_submit=True):
+        letter = st.text_input("write one eng letter:", max_chars=1).lower()
+        submit = st.form_submit_button("Try!")
+    
+    if submit and letter:
+        if letter in st.session_state.guessed_letters:
+            st.warning(f"u already have written this letter, aww, dont sleep!! 🥱")
+        elif letter in word:
+            st.session_state.guessed_letters.add(letter)
+            st.toast("yeap, i have this letter!", icon="✅")
+        else:
+            st.session_state.guessed_letters.add(letter)
+            st.session_state.attempts -= 1
+            roasts = [
+                "ur my stupid hehe 🦒",
+                "i believe in u! (almost..) 🤡",
+                "?? r u a robot, dear?? 🤖",
+                "oops, i see someone couldnt read the hint... 🌸"
+            ]
+            st.error(random.choice(roasts))
 
-            # --- Подсказка и счетчик ---
-            st.info("💡 hint: it started  w an **'S'**")
-            st.write(f"honey, u have: {st.session_state.attempts} attemts!")
+# --- Проверка состояния игры ---
+if "_" not in "".join([letter if letter in st.session_state.guessed_letters else "_" for letter in word]):
+    st.balloons()
+    st.success("YOU WON! You are the smartest sweetheart! 💖")
+    if st.button("Play again?"):
+        del st.session_state.guessed_letters
+        del st.session_state.attempts
+        st.rerun()
 
-            # --- Ввод буквы ---
-            # Мы добавляем key="hangman_input", чтобы Streamlit не путался
-            letter = st.text_input("write one eng letter:", max_chars=1, key="hangman_input").upper()
-            
-            if letter:
-                if letter in st.session_state.guessed_letters:
-                    st.warning(f"u already have written this letter,aww,dont sleeep!! 😉")
-                elif letter in word:
-                    st.session_state.guessed_letters.add(letter)
-                    st.toast("yeap,i have this letter!", icon="✅")
-                else:
-                    st.session_state.guessed_letters.add(letter)
-                    st.session_state.attempts -= 1
-                    
-                    # Милые подколы при ошибке
-                    roasts = [
-                        "ur my stupid hehe🌴",
-                        "i believe in u!(almost..)😎",
-                        "?? r u a fcking robot,dear?? 🤖",
-                        "oops, i  see someone couldnt read the hint... 🙊"
-                    ]
-                    st.error(random.choice(roasts))
-
-            # --- Отображение слова ---
-            display_word = "".join([c if c in st.session_state.guessed_letters else " _ " for c in word])
-            st.header(f"`{display_word}`")
-
-            # --- Финал игры ---
-            if " _ " not in display_word:
-                st.success("sweetie u passed! ❤️")
-                heart_rain()
-                if st.button("start again??)"):
-                    st.session_state.guessed_letters = set()
-                    st.session_state.attempts = 6
-                    st.rerun()
-                    
-            elif st.session_state.attempts <= 0:
-                st.error(f"u lost r attemts! the word was: {word}. but actually its not that bad)😴")
-                if st.button("give me one more chance!"):
-                    st.session_state.guessed_letters = set()
-                    st.session_state.attempts = 6
-                    st.rerun()
-
+if st.session_state.attempts <= 0:
+    st.error(f"Game Over! The word was: {word} 💔")
+    if st.button("Try again?"):
+        del st.session_state.guessed_letters
+        del st.session_state.attempts
+        st.rerun()
         # 2. РЕТРИВЕР
     elif guess == 2:
         st.subheader("📸 i think i found ur photo!..")
